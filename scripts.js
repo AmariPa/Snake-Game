@@ -4,11 +4,16 @@ let rows = 25;
 let cols = 25;
 let canvas;
 let context;
+let foodX;
+let foodY;
 
 //head position
-const headX = block * 5;
-const headY = block * 5;
+let headX = block * 5;
+let headY = block * 5;
 
+//snake vel
+let velocityX = 0;
+let velocityY = 0;
 
 //canvas creation 
 window.onload = function() {
@@ -18,9 +23,9 @@ window.onload = function() {
     context = c.getContext("2d");
 
     placeFood();
-
-    update();
-
+    //watches for keyup event
+    document.addEventListener("keyup", moveAround);
+    setInterval(update, 1000/100);
 }
 
 //drawing and updating  components
@@ -31,11 +36,34 @@ function update() {
 
     //snake headd 
     context.fillStyle='green';
+    //movement
+    headX += velocityX;
+    headY += velocityY;
     context.fillRect(headX, headY, block, block);
 
     //food
     context.fillStyle = 'red';
     context.fillRect(foodX, foodY, block, block);
+}
+
+//movement
+function moveAround(e) {
+    if (e.code == 'ArrowUp') {
+        velocityX = 0;
+        velocityY = -1;
+    }
+    else if (e.code == 'ArrowDown') {
+        velocityX = 0;
+        velocityY = 1;
+    }
+    else if (e.code == 'ArrowLeft') {
+        velocityX = -1;
+        velocityY = 0;
+    }
+    else if (e.code == 'ArrowRight') {
+        velocityX = 1;
+        velocityY = 0;
+    }
 }
 
 
