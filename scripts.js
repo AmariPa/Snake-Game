@@ -1,9 +1,13 @@
-//creating important variables
-const block = 25;
-const rows = 20;
-const cols = 20;
+//creating important variables block = 25;
+let block = 25;
+let rows = 25;
+let cols = 25;
 let canvas;
 let context;
+
+//head position
+const headX = block * 5;
+const headY = block * 5;
 
 //canvas creation 
 window.onload = function() {
@@ -18,8 +22,11 @@ window.onload = function() {
 
 //drawing and updating the canvas
 function update() {
-    context.fillStyle = 'gray';
+    context.fillStyle = 'black';
     context.fillRect(0, 0, c.height, c.width);
+
+    context.fillStyle='green';
+    context.fillRect(headX, headY, block, block);
 }
 
 
