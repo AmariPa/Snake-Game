@@ -25,7 +25,8 @@ window.onload = function() {
     placeFood();
     //watches for keyup event
     document.addEventListener("keyup", moveAround);
-    setInterval(update, 1000/100);
+    //canvas update
+    setInterval(update, 1000/15);
 }
 
 //drawing and updating  components
@@ -34,33 +35,39 @@ function update() {
     context.fillStyle = 'black';
     context.fillRect(0, 0, c.height, c.width);
 
+        //food
+    context.fillStyle = 'red';
+    context.fillRect(foodX, foodY, block, block);
+
+    //if you eat the food, it spawns in a new location
+    if(headX == foodX && headY == foodY) {
+        placeFood();
+    }
+
     //snake headd 
     context.fillStyle='green';
     //movement
-    headX += velocityX;
-    headY += velocityY;
+    headX += velocityX * block;
+    headY += velocityY * block;
     context.fillRect(headX, headY, block, block);
 
-    //food
-    context.fillStyle = 'red';
-    context.fillRect(foodX, foodY, block, block);
 }
 
 //movement
 function moveAround(e) {
-    if (e.code == 'ArrowUp') {
+    if (e.code == 'ArrowUp' && velocityY != 1) {
         velocityX = 0;
         velocityY = -1;
     }
-    else if (e.code == 'ArrowDown') {
+     if (e.code == 'ArrowDown' && velocityY != -1) {
         velocityX = 0;
         velocityY = 1;
     }
-    else if (e.code == 'ArrowLeft') {
+     if (e.code == 'ArrowLeft' && velocityX != 1) {
         velocityX = -1;
         velocityY = 0;
     }
-    else if (e.code == 'ArrowRight') {
+     if (e.code == 'ArrowRight' && velocityX != -1) {
         velocityX = 1;
         velocityY = 0;
     }
